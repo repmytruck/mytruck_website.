@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--titulo-->
+	<title>Perto de Você - Food Parks</title>
+	<!--icone-->
+	<link rel="icon" type="ico" href="../Favicon.ico" />
+	<!--bootstrap-->
+
+	<script src="js/jquery-3.3.1.min.js"></script>
+    <script src="css/bootstrap-4.1.1/js/bootstrap.min.js"></script>
+    <!--animações-->
+	<link rel="stylesheet" type="text/css" href="../css/animate.css">
+    <!--AngularJS v1.6.9-->
+    <script src="js/angular.min.js"></script>   
+    <!--css-->
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+        <link rel="stylesheet" href="assets/css/icofont.css">
+        <link rel="stylesheet" href="assets/css/meanmenu.min.css">
+        <link rel="stylesheet" href="assets/css/slick.css">
+        <link rel="stylesheet" href="assets/css/owl.carousel.css">
+        <link rel="stylesheet" href="assets/css/magnific-popup.css">
+        <link rel="stylesheet" href="assets/css/animated-headlines.css">
+        <link rel="stylesheet" href="assets/css/shortcode/shortcodes.css">
+        <link rel="stylesheet" href="assets/style.css">
+
+
+
+</head>
+<body>
+
+<!--imagem-->
+<!--<div class="container">
+<nav class="navbar navbar-fixed-top">
+<a class="navbar-brand" href="../index.html"><img src="../img/logo.png" width="90px" height="80px" ></a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<ul class="navbar-nav">
+<li class="nav-item" id="foodpark">
+    <a class="nav-link" href="/">Food Parks</a>
+</li>
+<li class="nav-item" id="foodtruck">
+    <a class="nav-link" href="/foodtrucks.html">Food Trucks</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/pertodevoce.html">Perto de você</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/formtruck.html">Adicione seu Food Truck</a>
+</li>
+</ul>
+<div class="form-inline my-2 my-lg-0">
+<div id="logadomenu">
+    <a href="../app/login.html" style="margin-right: 10px;"><span class="btn btn-outline-success my-2 my-sm-0">Login</span></a>
+    <a href="../app/cadastro.html"><span class="btn btn-outline-success my-2 my-sm-0">Cadastre-se</span></a>
+</div>
+<div id="mostrarlogadomenu" style="display:none;">
+    <a href="../app/perfil.html" style="margin-right: 10px;"><span class="btn btn-outline-success my-2 my-sm-0">Perfil</span></a>
+    <a href="" id="sairButtonmenu"><span class="btn btn-outline-success my-2 my-sm-0">Sair</span></a>
+</div>
+
+</div>
+</nav>
+</div>-->
+
+
+
+<header>
+        <nav id="header-top" class="navbar  navbar-fixed-to" style="background: rgba(0, 0, 0, 0) linear-gradient(to right, #ff5f6d 0%, #ffb270 100%) repeat scroll 0 0;">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/"><img src="assets/img/logo.png" alt="MyTruck"></a>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation" aria-expanded="false">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="navigation">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="menuNav" id="foodpark">
+                            <a class="nav-link" href="../#toptrucks">Food Parks</a>
+                          </li>
+                          <li class="menuNav" id="foodtruck">
+                            <a class="nav-link" href="/foodtrucks.html">Food Trucks</a>
+                          </li>
+                          <li class="menuNav">
+                            <a class="nav-link" href="/pertodevoce.html">Perto de você</a>
+                          </li>
+                          <li class="menuNav">
+                            <a class="nav-link" href="/formtruck.html">Adicione seu Food Truck</a>
+                          </li>
+                          <li>
+                          <div id="logadomenu" style="padding: 20px !important;">
+                            <a class="download-btn" href="../app/login.html">Login</a>
+                            <a class="download-btn" href="../app/cadastro.html">Cadastre-se</a>
+                          </div>
+                         
+                          <div id="mostrarlogadomenu" style="display:none; padding: 20px !important;">
+                            <a class="download-btn" href="../app/perfil.html">Perfil</a>
+                            <a class="download-btn" href="" id="sairButtonmenu">Sair</a>
+                          </div>
+                          </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+
+</body>
+</html>
+
+
+<!--backupzim-->
+<!--navegação miniaturas-->
+<script>
+    (function($) {
+    $("#botoes1 span").on("click", function(){
+        var index = $(this).index();
+        var lista_top = $("#lista1").scrollLeft();
+        $("#lista1").animate({ scrollLeft: lista_top+Number((index == 0 && '-')+240) }, 750);
+    });
+    
+    $("#botoes2 span").on("click", function(){
+        var index = $(this).index();
+        var lista_top = $("#lista2").scrollLeft();
+        $("#lista2").animate({ scrollLeft: lista_top+Number((index == 0 && '-')+240) }, 750);
+    });
+    
+    $("#botoes3 span").on("click", function(){
+        var index = $(this).index();
+        var lista_top = $("#lista3").scrollLeft();
+        $("#lista3").animate({ scrollLeft: lista_top+Number((index == 0 && '-')+240) }, 750);
+    });
+    
+    $("#botoes4 span").on("click", function(){
+        var index = $(this).index();
+        var lista_top = $("#lista4").scrollLeft();
+        $("#lista4").animate({ scrollLeft: lista_top+Number((index == 0 && '-')+240) }, 750);
+    });
+    
+    $("#botoes5 span").on("click", function(){
+        var index = $(this).index();
+        var lista_top = $("#lista5").scrollLeft();
+        $("#lista5").animate({ scrollLeft: lista_top+Number((index == 0 && '-')+240) }, 750);
+    });
+    
+    $("#botoes6 span").on("click", function(){
+        var index = $(this).index();
+        var lista_top = $("#lista6").scrollLeft();
+        $("#lista6").animate({ scrollLeft: lista_top+Number((index == 0 && '-')+240) }, 750);
+    });
+    
+    $("#botoesvideos span").on("click", function(){
+        var index = $(this).index();
+        var lista_top = $("#listavideos").scrollLeft();
+        $("#listavideos").animate({ scrollLeft: lista_top+Number((index == 0 && '-')+240) }, 750);
+    });
+    
+    $('#projetovideos').carousel({
+        pause: true,
+        interval: false
+    });
+    
+    })( jQuery );
+    </script>
+    <!--fim navegação miniaturas-->
+    
+    <!--função menu categorias-->
+    <script>
+        var menuCategorias = document.getElementById('menuCategorias');
+        
+        menuCategorias.addEventListener("click", function(){
+                console.log('foi');
+            var teste = document.getElementsByClassName('categ');
+            for (i=0; i<teste.length; i++) {
+                            teste[i].classList.add("fadeanim");
+                   teste[i].style.display = "none";
+            }
+           
+            var valor = document.getElementsByClassName(menuCategorias.value);
+            for (i=0; i<valor.length; i++) {
+                            valor[i].classList.add("fadeanim");
+                  valor[i].style.display = "block";
+            }
+        })
+    
+    </script>
+    <!--fim função menu categorias-->
+
+
+
+
+    <!--função menu categorias-->
+    <script>
+        var menuCategorias = document.getElementsByClassName('categ');
+        for (i=0; i<menuCategorias.length; i++) {
+            var classseCompleta = menuCategorias[i].classList;
+            console.log(classseCompleta.toString())
+        }
+
+        menuCategorias.addEventListener("click", function(){
+                console.log('foi');
+            var teste = document.getElementsByClassName('categ');
+            for (i=0; i<teste.length; i++) {
+                            teste[i].classList.add("fadeanim");
+                   teste[i].style.display = "none";
+            }
+           
+            var valor = document.getElementsByClassName(menuCategorias.value);
+            for (i=0; i<valor.length; i++) {
+                            valor[i].classList.add("fadeanim");
+                  valor[i].style.display = "block";
+            }
+        })
+    
+    </script>
+    <!--fim função menu categorias-->

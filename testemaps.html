@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Place Autocomplete Address Form</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>maps</title>    
+    <!--icone-->
+        <link rel="icon" type="imagem/png" href="Favicon.ico" />
+        <!--bootstrap-->
+         <link rel="stylesheet" type="text/css" href="css/bootstrap-4.1.1/css/bootstrap.min.css">
+         <script src="js/jquery-3.3.1.min.js"></script>
+         <script src="css/bootstrap-4.1.1/js/bootstrap.min.js"></script>   <!--animações-->
+         <link rel="stylesheet" type="text/css" href="../css/animate.css">
+         <!--css-->
+         <link rel="stylesheet" type="text/css" href="../css/style.css">
+         <!--AngularJS v1.6.9-->
+         <script src="../js/angular.min.js"></script>   
+         <!--script de macaras-->
+<script src="js/mascaras.js"></script> 
+         <!--css login/cadastro-->
+         <style>
+             body{background-color: #E9E9E9;}
+             #mostrarlogado{display:none;}
+             .btn{margin: 30px 0 20px 0;}
+             #caixa, .avisocaixa {background-color: #ffffff; margin: 8px; padding:30px;}
+             #formparknao{display: none;}
+             #formparkcadastro{display: none;}
+             #listaparks input[type=radio]{display:none;} 
+             #listaparks input[type=radio] + label {transition: background-color 1s; cursor: pointer; width:100%; border:thin solid #ccc;} 
+             #listaparks input[type=radio]:checked + label {background-color:#ccc;} 
+             #mensagemErro{font-size:16px; text-align:center;color:brown;}
+             .form-inline input {margin:10px;}
+             @media only screen and (max-width: 900px) {
+                 
+                 #avisocaixa{margin-top:8px !important;}
+                 
+             }
+         </style>
+  </head>
+
+  <body>
+
+<div class="container" >
+<div class="row centered">
+<div class="col-md-2"></div> 
+<div class="col-md-8 shadow">
+
+<form id="formulario">
+
+    <div class="row">
+        <div class="form-group col-sm-4">
+            <label for="cep">CEP*</label>
+            <input type="text" class="form-control form-control-sm" id="cep" value=""  onkeyup="mascara('#####-###',this,event,true)" maxlength="9" onblur="pesquisacep(this.value);">
+            <div id="mensagemCep"></div>
+        </div>
+        <div class="form-group col-sm-2">
+            <label for="numeroLocal">Número*</label>
+            <input type="number" class="form-control form-control-sm" id="numeroLocal" onblur="pesquisacep(cep.value);">
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="complemento">Complemento(opcional)</label>
+            <input type="text" class="form-control form-control-sm" id="complemento" onblur="pesquisacep(cep.value);">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-sm-12">
+            <label for="local">local</label>
+            <input type="text" class="form-control form-control-sm" id="local" disabled>
+        </div>
+        <div class="form-group col-sm-12">
+            <label for="localteste">localteste</label>
+            <input type="text" class="form-control form-control-sm" id="localteste" disabled>
+        </div>
+    </div>
+
+    
+
+    <div id="mensagemErro"></div>
+
+    <button type="submit" id="botano">imprimir no console</button>
+
+</form>
+<a href="https://maps.googleapis.com/maps/api/geocode/json?address=Winnetka&key=AIzaSyDRSnBwUm4cvuJbTcCUBEL4K7Yd-4_uIo4">teste</a>
+
+</div>
+</div>
+</div>
+<!--funçoes do firebase-->
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+<!--conexão com o firebase-->
+<script src="js/app.js"></script>
+<script>
+
+function limpa_formulário_cep() {
+    //Limpa valores do formulário de cep.
+    document.getElementById('cep').value=("");
+    document.getElementById('numeroLocal').value=("");
+    document.getElementById('complemento').value=("");
+    mensagemCep.innerHTML = '';
+    document.getElementById('cep').style.border = "";
+}
+
+function meu_callback(conteudo) {
+if (!("erro" in conteudo)) {
+    //Atualiza os campos com os valores.
+    var rua = (conteudo.logradouro);
+    var bairro = (conteudo.bairro);
+    var cidade = (conteudo.localidade);
+    var uf = (conteudo.uf);
+
+    var complemento = document.getElementById('complemento').value;
+    var numeroLocal = document.getElementById('numeroLocal').value;
+    document.getElementById('localteste').value = (rua+'+'+numeroLocal+'+'+bairro+'+'+cidade+'+'+uf);
+    document.getElementById('local').value = (rua+', '+numeroLocal+' '+complemento+'- '+bairro+', '+cidade+'/'+uf);
+
+} //end if.
+else {
+    //CEP não Encontrado.
+    limpa_formulário_cep();
+    document.getElementById('cep').style.border = "thin solid red";
+    mensagemCep.innerHTML = ('<span class="animated flash" style="color:red; font-size:10px;">CEP não encontrado!</span>');
+}
+}
+
+function pesquisacep(valor) {
+//Nova variável "cep" somente com dígitos.
+var cep = valor.replace(/\D/g, '');
+//Verifica se campo cep possui valor informado.
+if (cep != "") {
+
+    //Expressão regular para validar o CEP.
+    var validacep = /^[0-9]{8}$/;
+
+    //Valida o formato do CEP.
+    if(validacep.test(cep)) {
+        mensagemCep.innerHTML = '';
+        //Cria um elemento javascript.
+        var script = document.createElement('script');
+        //Sincroniza com o callback.
+        script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+        //Insere script no documento e carrega o conteúdo.
+        document.body.appendChild(script);
+    } //end if.
+    else {
+        //cep é inválido.
+        limpa_formulário_cep();
+        document.getElementById('cep').style.border = "thin solid red";
+        mensagemCep.innerHTML = ('<span class="animated flash" style="color:red; font-size:10px;">Formato de CEP invalido!</span>');
+    }
+} //end if.
+else {
+    //cep sem valor, limpa formulário.
+    limpa_formulário_cep();
+    document.getElementById('cep').style.border = "thin solid red";
+    mensagemCep.innerHTML = ('<span class="animated flash" style="color:red; font-size:10px;">Digite primeiro o CEP!</span>');
+}
+};
+
+var formulario = document.getElementById('formulario');
+
+formulario.addEventListener('submit', function (e) {
+
+    // impede o envio do form
+    e.preventDefault();
+    
+    //carregando
+    mensagemErro.innerHTML = ('<div class="animated fadeIn">Carregando... <img src="../img/load.gif"/></div>');
+
+var local = document.getElementById('local');
+
+var cepteste = document.getElementById('cep').value;
+
+
+var localteste = document.getElementById('localteste').value;
+var endereco = 'https://maps.googleapis.com/maps/api/geocode/json?address='+localteste+'&key=AIzaSyDRSnBwUm4cvuJbTcCUBEL4K7Yd-4_uIo4';
+$.ajax({
+    url: endereco,
+    complete: function(res){
+        meuJSON = JSON.parse(res.responseText);
+        firebase.database().ref('/teste/').update( {
+            lat: meuJSON.results[0].geometry.location.lat,
+            lng: meuJSON.results[0].geometry.location.lng
+        }).then(function () {
+            console.log('enviou latitude e longitude');
+        }).catch(function (error) {
+            //limpando mensagem
+            mensagemErro.innerHTML = ('');
+            //exibindo erro 
+            mensagemErro.innerHTML = ('<div class="alert alert-danger"><span class="animated flash">Falha ao carregar latitude e longitude!</span></div>');
+            console.log('Erro LatLng: ' + error.message);
+            break;
+        });
+    }  
+})
+
+
+
+})
+/*
+var url = "https://maps.googleapis.com/maps/api/geocode/json?address=50100290&key=AIzaSyDRSnBwUm4cvuJbTcCUBEL4K7Yd-4_uIo4";
+
+var httpRequest = new XMLHttpRequest();
+httpRequest.open("GET", url);
+httpRequest.responseType = "json";
+httpRequest.addEventListener("readystatechange", function () {
+  if (httpRequest.readyState == 4){
+    if (httpRequest.status == 200){
+      console.log(httpRequest.response);
+
+    } else {
+    
+    }
+  }
+  return httpRequest.response;
+});
+
+httpRequest.send();
+console.log(httpRequest);
+*/
+
+</script>
+
+  </body>
+</html>

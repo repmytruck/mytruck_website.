@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--titulo-->
+    <title>Foood Park</title>
+	<!--icone-->
+  <link rel="icon" type="ico" href="../Favicon.ico" />
+	<!--bootstrap-->
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="css/bootstrap-4.1.1/js/bootstrap.min.js"></script>
+  <!--Animate.css-->
+  <link rel="stylesheet" type="text/css" href="../css/animate.css">
+  <!--css-->
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <!--fontawesome-free-5.0.13-->
+  <link rel="stylesheet" href="../css/font-awesome/css/fontawesome-all.min.css">
+  <!--AngularJS v1.6.9-->
+  <script src="js/angular.min.js"></script>   
+
+	   <!-- all css here -->
+	   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	   <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+	   <link rel="stylesheet" href="assets/css/icofont.css">
+	   <link rel="stylesheet" href="assets/css/meanmenu.min.css">
+	   <link rel="stylesheet" href="assets/css/slick.css">
+	   <link rel="stylesheet" href="assets/css/owl.carousel.css">
+	   <link rel="stylesheet" href="assets/css/magnific-popup.css">
+ 
+	   <link rel="stylesheet" href="assets/css/shortcode/shortcodes.css">
+	   <link rel="stylesheet" href="assets/style.css">
+	   <link rel="stylesheet" href="assets/css/responsive.css">
+	   <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>  
+
+
+    <style>
+      .estrelas input[type=radio] + label {cursor: pointer;}
+      .userestrelas{font-size: 12px;}
+      .userestrelas .fas {color: goldenrod;}
+      #areaCriancas i, #estacionamento i {color:#fff; background-color: #10B1A2; padding: 15px; }
+    
+      @media only screen and (max-width: 900px) {
+        #estacionamento, #areaCriancas{
+        margin: 10px 0 !important;
+        width:100%!important;
+        text-align: left !important;
+      }
+        }
+    </style>
+
+  </head>
+
+ <body ng-app="" class="animated fadeIn">
+	 <!--header-->
+    <ng-include src="'../partes/header.html'"></ng-include>
+
+
+	  <!--titulo-->
+    <div class="jumbotron jumbotron-fluid" style="background-color:transparent;">
+        <div class="container">
+          <!--nome park-->
+          <h2 id="nomePark" class="display-4"></h2>
+          <!--descricao park-->
+          <p id="descricao" class="lead"></p>
+        </div>
+    </div>
+
+
+  <div class="container">
+    <div class="row">
+      <!--####corpo#####-->  
+      <div class="col-lg-9">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <!--imagem-->
+            <div id="imagem" class="mb-4 mb-4"></div>
+          </div>
+        </div>
+      
+        <br>
+        <div class="row text-center">
+          <div class="col-sm-6">
+            <!--areaC-->
+            <div id="areaCriancas"></div>
+          </div>
+          <div class="col-sm-6">  
+            <!--horario-->
+            <div id="estacionamento"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg text-center">
+            <br><h3>Horário de Funcionamento</h3><br>
+            <!--semana-->
+            <div id="semana"></div>  
+            <!--horario-->
+            <div id="horario"></div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg">
+
+            <br><h4>Localização</h4><br>
+            <!--endereço-->
+            <div id="endereco" class="mb-4"></div>  
+            <!--mapa-->
+            <div id="map" class="mb-4 shadow"></div>
+
+          </div>
+        </div>
+
+        <!--lista de food trucks-->
+        <br><h2>Food Trucks</h2><br>
+        <div id="listaTruck" class="row"></div>
+
+        <!--avaliações-->
+        <h2 id="ancoracomen" style="margin-top: 50px;">Deixe a sua avaliação</h2><br>
+        
+        <!--aviso para deslogados-->
+        <div id="avisodeslogado"></div>
+
+          <form id="formulario">
+            <div class="form-group disabled">
+              <label for="nome">Usuário*</label>
+              <input type="text" class="form-control" id="nome" placeholder="" readonly>
+            </div>
+
+            <div class="estrelas">
+              <label>Sua classificação:</label><br>
+              <label for="cm_star-1"><i class="fa"></i></label>
+              <input type="radio" id="cm_star-1" name="fb" value="1"/>
+              <label for="cm_star-2"><i class="fa"></i></label>
+              <input type="radio" id="cm_star-2" name="fb" value="2"/>
+              <label for="cm_star-3"><i class="fa"></i></label>
+              <input type="radio" id="cm_star-3" name="fb" value="3" checked/>
+              <label for="cm_star-4"><i class="fa"></i></label>
+              <input type="radio" id="cm_star-4" name="fb" value="4"/>
+              <label for="cm_star-5"><i class="fa"></i></label>
+              <input type="radio" id="cm_star-5" name="fb" value="5"/>
+            </div>
+
+            <div class="form-group">
+              <label for="comentario">Comentário*</label>
+              <textarea class="form-control" id="comentario" rows="3"></textarea>
+            </div>
+
+            <!--mensagem de erro-->
+            <div id="mensagemErro" class="text-center"></div>
+
+            <button type="submit" class="btn btn-primary">Enviar</button>
+
+          </form> <br>
+ 
+
+      <div class="row">
+        <div class="col-lg">
+
+          <br><h3>Avaliações</h3><br>
+          <!--aviso sem comentarios-->
+          <div id="aviso"></div>     
+          <!--avaliações-->
+          <ul id="avaliacoes" class="list-unstyled"></ul>
+
+        </div>
+      </div>
+
+      
+    </div><!--fim col corpo-->
+    
+      
+
+    <!--barra lateral-->
+    <div class="col-lg-3">
+      <p>barra lateral</p>
+    </div>
+    
+  </div><!--fim row container-->
+  </div><!--fim container-->
+
+    <!--modal logar para favoritar-->
+<div id="mymodal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="text-center" style="padding: 20px">
+          <span style="padding-top:50px;">Para favoritar você precisa estar conectado.</span><br><br>
+          <a href="../app/login.html" style="margin-right: 10px;"><span class="btn btn-danger my-2 my-sm-0">Entrar</span></a>
+          <a href="../app/cadastro.html"><span class="btn btn-danger my-2 my-sm-0">Cadastro</span></a><br><br>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--footer-->
+<ng-include src="'../partes/footer.html'"></ng-include>
+
+ <!-- all js here -->
+ <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+ <script src="assets/js/bootstrap.min.js"></script>
+ <script src="assets/js/owl.carousel.min.js"></script>
+ <script src="assets/js/slick.min.js"></script>
+ <script src="assets/js/jquery.ajaxchimp.min.js"></script>
+ <script src="assets/js/plugins.js"></script>
+ <script src="assets/js/main.js"></script>
+
+
+<!--chamando arquivo de funçoes do firebase-->
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>   
+<!--chamando a conexão com o firebase-->
+<script src="js/app.js"></script>
+
+<!--info bubble-->
+<script type="text/javascript">
+  var script = '<script type="text/javascript" src="../js/infobubble/infobubble';
+  if (document.location.search.indexOf('compiled') !== -1) {
+    script += '-compiled';
+  }
+  script += '.js"><' + '/script>';
+  document.write(script);
+</script>
+
+
+<script>
+  
+  //capturando a url
+  var url = window.location.href;
+  //selecionando o que está apos da interrogação
+  var refPark = url.split("?")[1];
+
+
+  // declarando variaveis e buscando elementos por id
+  var nomePark = document.getElementById('nomePark');
+  var descricao = document.getElementById('descricao');
+  var imagem = document.getElementById('imagem');
+  var listaTruck = document.getElementById('listaTruck');
+  var local = document.getElementById('local');
+  var endereco = document.getElementById('endereco');
+  var areaCriancas = document.getElementById('areaCriancas');
+  var estacionamento = document.getElementById('estacionamento');
+  var semana = document.getElementById('semana');
+  var horario = document.getElementById('horario');
+
+
+//estado do usuario
+firebase.auth().onAuthStateChanged (user => {
+  //atribuindo caminho do no a dbRef
+  firebase.database().ref('/Parks/' + refPark + '/perfil/').once("value").then(function(child) {
+
+    //IMAGEM DO PARK
+    var divimagem = document.createElement('divimagem');
+    divimagem.innerHTML = (
+    '<img src="' + child.val().foto + '" class="img-fluid shadow" width="100%" height="auto">'           
+    );
+    imagem.appendChild(divimagem);
+
+    //nome descrição endereço
+    nomePark.innerHTML = (child.val().nome);
+    descricao.innerHTML = (child.val().descricao);
+    endereco.innerHTML = (child.val().endereco);
+
+    //MAPA
+    if(child.val().lat == null && child.val().lng == null){
+      var divlocal = document.createElement('divlocal');    
+      divlocal.innerHTML = (
+        '<div class="alert alert-danger">Mapa não encontrado!</div>'
+        );
+      local.appendChild(divlocal);
+    }else{
+      //exibindo mapa
+      var map = document.getElementById('map');
+      var localMapa = {lat: child.val().lat, lng: child.val().lng};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: localMapa
+        });
+        var marker = new google.maps.Marker({
+          position: localMapa,
+          map: map,
+          animation: google.maps.Animation.DROP,
+          icon: '../img/map-marker-8.png',
+          title: child.val().nome
+          });
+
+          var contentString = 
+          '<div class="text-center marcadorInfo"><a href="https://www.google.com.br/maps/place/'+child.val().endereco+'" target="_blank">'+
+          '<br><img src="img/iconemapavermelho.png" width="40px" height="30px" class="rounded mx-auto d-block"/><br>'+
+          '<span style="color:#000;">'+child.val().nome+'</span></a></div>';
+
+          infoBubble = new InfoBubble({
+          maxWidth: 300,
+          maxHeight: 300,
+          content: contentString,
+          backgroundColor: '#fff',
+          padding: 0,
+          hideCloseButton: true,
+          });
+          infoBubble.open(map, marker);
+    }
+
+    //AREA PARA CRIANÇAS
+    if(child.val().areacriancas == 'sim'){
+      areaCriancas.innerHTML = ('<i class="fas fa-child"></i> Com área para crianças!');
+    }else{}
+
+    //ESTACIONAMENTO
+    if(child.val().estacionamento == 'sim'){
+      estacionamento.innerHTML = ('<i class="fas fa-car"></i> Com estacionamento!');
+    }else{}
+    
+    //SEMANA
+    semana.innerHTML = (child.val().semana);
+
+    //HORARIO
+    horario.innerHTML = ('Das' + child.val().horario);
+
+  });
+
+
+  /*Chamando a LISTA de FOOD TRUCKS do Park;*/
+firebase.database().ref('/Parks/'+ refPark +'/Trucks/').once("value").then(function(bdad) {
+bdad.forEach(function (banco) {
+firebase.database().ref('/Parks/'+ refPark +'/Trucks/'+banco.key).once("value").then(function(child) {
+
+var div = document.createElement('div');
+
+div.className = "col-lg-6";
+
+div.innerHTML = (
+'<a href="foodtruck.html?'+ refPark +'&'+ banco.key + '">' + 
+'<div class="card">' + 
+'<img class="card-img-top" src="' + child.val().foto + '" style="height: 250px; width: 100%; display: block;">' + 
+'<div class="card-body"><h3 class="card-title">' + child.val().nome + '</h3>' + 
+'<p class="card-text">'+ child.val().descricao +'</p></a>' + 
+'<div class="card-footer" style="margin-top:30px;">' + 
+'<table style="width:100%; background-color:#ccc;"><tr>' + 
+'<td  style=" text-align:center !important;border:2px solid #fff !important;padding:10px 0px;"><a href="" id="Parks/'+ refPark +'/Trucks/'+ banco.key +'" class="favoritos"></a></td>' +
+'<td style=" text-align:center !important;border:2px solid #fff !important;padding:10px 0px;"><a href="foodtruck.html?'+ refPark +'&'+ banco.key + '"> <i class="far fa-comment-alt"></i>  Avalie &nbsp;&nbsp;&nbsp;</a></td>' + 
+'</tr></table></div></div></div>'
+
+);
+listaTruck.appendChild(div);
+
+
+})
+//pegando os favoritos do usuario 
+.then(function () {
+
+firebase.auth().onAuthStateChanged (user => {
+	if(user){
+		firebase.database().ref('/usuarios/'+ user.uid + '/Favoritos/Trucks/').once("value").then(function (dados) {
+			
+			//favoritando sem referencia no banco de dados
+			if(dados.val() == null){
+
+				//favoritando
+				var x =  document.getElementById('Parks/'+ refPark +'/Trucks/'+banco.key);
+				x.innerHTML = ('<i class="far fa-star"></i> Favoritar ')
+				x.addEventListener('click', function () {
+					firebase.database().ref('/usuarios/'+ user.uid + '/Favoritos/Trucks/'+banco.key).set('Parks/'+ refPark +'/Trucks/'+banco.key);
+					location.reload();                                
+				})
+			}
+			//se usuario tiver pelo menos um favoritp
+			else{
+
+				var fav = dados.val();
+				var park = banco.key;
+
+				//não favorito
+				if (fav[park] == null){
+
+					var x =  document.getElementById('Parks/'+ refPark +'/Trucks/'+banco.key);
+					x.innerHTML = ('<i class="far fa-star"></i> Favoritar ');
+					
+					//favoritando
+					x.addEventListener('click', function () {
+						firebase.database().ref('/usuarios/'+ user.uid + '/Favoritos/Trucks/'+banco.key).set('Parks/'+ refPark +'/Trucks/'+banco.key);
+						location.reload();                                
+					})
+				}
+				//favoritos do usuario
+				else{
+
+					var x = document.getElementById(fav[park]);
+					x.innerHTML=('<i class="fas fa-star"></i> Favorito ');
+					x.style.color = "red";
+
+					//desfavoritando
+					x.addEventListener('click', function () {
+						firebase.database().ref('/usuarios/'+ user.uid + '/Favoritos/Trucks/'+banco.key).remove();
+						location.reload();                                
+					})
+				}
+			}
+		})
+	}//fim if user
+	//else deslogado
+	else{
+
+		//link com modal para deslogados
+		var x = document.getElementsByClassName('favoritos');
+		for (i = 0; i < x.length; i++) {
+			x[i].innerHTML = ('<span data-toggle="modal" data-target=".bd-example-modal-sm"><i class="far fa-star"></i> Favoritar </span>')
+			
+		}
+
+	}//fim else user
+})//fim user
+
+})//fim then
+})
+})
+
+if(user){
+  //mostrando nome ou email nos comentarios e defininndo se será salvo o nome ou email
+  if(user.displayName == null){
+  var nome = document.getElementById('nome').placeholder = user.email;
+  }else{
+  var  nome = document.getElementById('nome').placeholder = user.displayName;
+  }
+
+}//fim if user
+else{
+  //exibindo mensagem para deslogados
+document.getElementById('avisodeslogado').innerHTML = (
+  '<div class="alert alert-danger"><span class="animated flash">Faça login ou cadastre-se para comentar!'+ 
+  '<a href="app/login.html"> login </a> ou <a href="app/cadastro.html">cadastre-se</a></span></div>');
+document.getElementById('formulario').style.display = 'none';
+
+}//fim else user
+
+//####################################################################
+  //menasgem de erro
+  var mensagemErro = document.getElementById('mensagemErro');
+  mensagemErro.innerHTML = '';
+  //submit formulario
+  formulario.addEventListener('submit', function (e) {
+    // impede o envio do form
+    e.preventDefault();
+
+    //carregando
+    mensagemErro.innerHTML = ('<div class="animated fadeIn">Carregando... <img src="../img/load.gif"/></div>');
+
+    //peganto data
+    var d = new Date();
+    var id = (("0" + d.getDate()).slice(-2)+'/'+ ("0" + (d.getMonth() + 1)).slice(-2) +'/'+d.getFullYear() +' '+("0" + d.getHours()).slice(-2)+':'+ ("0" + d.getMinutes()).slice(-2));
+    console.log(id);
+
+    //função valor das estrelas
+    function getRadioValor(name){
+      var rads = document.getElementsByName(name);
+      for(var i = 0; i < rads.length; i++){
+      if(rads[i].checked){
+        return rads[i].value;}}}
+
+        var estrelas = getRadioValor('fb');
+        var comentario = document.getElementById('comentario').value;
+
+    //validacao
+    if (comentario == '') {
+      document.getElementById('comentario').style.border = "thin solid red";
+      mensagemErro.innerHTML = '';
+      mensagemErro.innerHTML = ('<div class="alert alert-danger"><span class="animated flash">Digite o comentário!</span></div>');
+    }
+    //envio
+    else{
+      firebase.database().ref('/Parks/' + refPark +'/Avaliacoes/').push().set({
+        Usuario: nome,
+        Estrelas: estrelas, 
+        Comentario:comentario,
+        DataHorario: id
+      })
+      //confirmação
+      .then(function () {
+        document.getElementById('comentario').style.border = "";
+        mensagemErro.innerHTML = '';
+        mensagemErro.innerHTML = ('<div class="alert alert-success"><span class="animated flash">Comentário enviado!</span></div>');
+        // Limpando formulario
+        document.getElementById('formulario').reset();
+        
+      })
+
+    } //fim else validação
+
+  })//fim submit formulario comentario
+
+//avaliações
+var avaliacoes = document.getElementById('avaliacoes');
+var aviso = document.getElementById('aviso');
+
+firebase.database().ref('/Parks/' + refPark +'/Avaliacoes/').on("value", function(bandad) {
+//verificando se há comentarios
+if(bandad.val() == null){
+  aviso.innerHTML = ('<div class="alert alert-danger">Não há comentários!</div>');
+  avaliacoes.innerHTML = '';
+}else{aviso.innerHTML = '';}})
+
+  //exibindo comentarios
+  firebase.database().ref('/Parks/' + refPark +'/Avaliacoes/').on("child_added", function(dados) {
+
+  if(dados.val().Estrelas == '1'){
+    userestrerlas = '<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';    
+  }
+  if(dados.val().Estrelas == '2'){
+    userestrerlas = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';    
+  }
+  if(dados.val().Estrelas == '3'){
+    userestrerlas = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';    
+  }
+  if(dados.val().Estrelas == '4'){
+    userestrerlas = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>';    
+  }
+  if(dados.val().Estrelas == '5'){
+    userestrerlas = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';    
+  }
+
+    var newItem = document.createElement("div");
+    var textnode = document.createTextNode('');
+    newItem.appendChild(textnode);
+      
+    newItem.className = "animated fadeIn";
+    newItem.innerHTML = (
+    '<li class="media"><div style="float:left; margin-right:10px; border-radius:100px;"><img class="img-circle" src="../img/user.png" width="65px" height="65px"/></div>' +
+    '<div class="media-body"><h5 class="media-heading">'+ dados.val().Usuario +' <span style="font-size:10px;">'+dados.val().DataHorario +'</span></h5>'+
+    '<span class="userestrelas">'+ userestrerlas +'</span><br>' + dados.val().Comentario +'</div></li><hr>'
+    );
+    
+    avaliacoes.insertBefore(newItem, avaliacoes.childNodes[0]);
+
+  })
+
+})//fim user
+</script>
+<!--google maps-->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAD0qdiwQTUzeURc2Rc339gUiSc1MxhuJc&callback=initMap"></script>
+</body>
+</html>

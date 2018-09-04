@@ -1,0 +1,118 @@
+   <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+       <header>
+          <nav id="header-top" class="navbar">
+              <div class="container">
+                  <div class="navbar-header">
+                      <a class="navbar-brand" id="logoMenu" href="/"><img src="../assets/img/logo.png" alt="MyTruck"></a>
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation" aria-expanded="false">
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                      </button>
+                  </div>
+                  <div class="collapse navbar-collapse" id="navigation">
+                      <ul class="nav navbar-nav navbar-right">
+                          <li class="menuNav" id="foodpark">
+                              <a class="nav-link" href="../#toptrucks">Food Parks</a>
+                            </li>
+                            <li class="menuNav" id="foodtruck">
+                              <a class="nav-link" href="/foodtrucks.html">Food Trucks</a>
+                            </li>
+                            <li class="menuNav">
+                              <a class="nav-link" href="/pertodevoce.html">Perto de você</a>
+                            </li>
+                            <li class="menuNav">
+                              <a class="nav-link" href="/formtruck.html">Adicione seu Food Truck</a>
+                            </li>
+                            <li>
+                            <div id="logadomenu" style="padding: 20px !important;">
+                              <a class="download-btn" href="../app/login.html"><i class="fas fa-sign-in-alt"></i> Login</a>
+                              <a class="download-btn" href="../app/cadastro.html"><i class="far fa-address-card"></i> Cadastre-se</a>
+                            </div>
+                           
+                            <div id="mostrarlogadomenu" style="display:none; padding: 20px !important;">
+                              <a class="download-btn" href="../app/perfil.html"><i class="fas fa-user-edit"></i> Perfil</a>
+                              <a class="download-btn" href="" id="sairButtonmenu"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                            </div>
+                            </li>
+                      </ul>
+                  </div>
+              </div>
+          </nav>
+      </header>
+<!--fundo menu-->
+<section id="client" class="testimonial-area pt-120 pb-130 bg-4 bgsub">
+    <div class="container">
+      <div class="row">
+        
+      </div>
+    </div>
+  </section>
+  <!--fim fundo -->
+  
+ <script>
+   //arrumando responsividade da logo
+ window.addEventListener("resize", function () {
+    console.log(window.innerWidth);
+    var x = document.getElementById('logoMenu');
+    if(window.innerWidth < 1200){
+    x.style.width = '57px';
+    x.style.height = 'auto';
+    }
+    if(window.innerWidth > 1200){
+      x.style.width = '108px';
+      x.style.height = 'auto';
+    }
+  })
+
+  //menu active
+  var pagurl = window.location.pathname;
+  var x = document.getElementsByClassName('menuNav');
+  var y = document.getElementsByClassName('nav-link');
+  for (i = 0; i < x.length; i++) {
+    var j = y[i].getAttribute("href");
+    if (j == pagurl) {
+      x[i].className = "active";
+    }
+  }//pag inicial food parks e food trucks individuais
+if(pagurl == '/'){document.getElementById('foodpark').className = "active";}
+if(pagurl == '/foodpark.html'){document.getElementById('foodpark').className = "active";}
+if(pagurl == '/foodtruck.html'){document.getElementById('foodtruck').className = "active";}
+
+//botoes de login e cadastro
+  var avisologadomenu = document.getElementById('avisologadomenu');
+  var sairButtonmenu = document.getElementById('sairButtonmenu');
+  
+
+//verificação de usuario
+  firebase.auth().onAuthStateChanged(firebaseUser => {
+    if(firebaseUser){
+
+      document.getElementById('logadomenu').style.display = 'none';
+      document.getElementById('mostrarlogadomenu').style.display = 'block';
+
+    } else{
+
+    }
+  });
+
+  //sair
+  sairButtonmenu.addEventListener('click', function () {
+    firebase
+    .auth()
+    .signOut()
+    .then(function() {
+        location.reload();
+    })
+    .catch(function(error) {
+        console.error(error.code);
+        console.error(error.message);
+        alert('Falha ao sair')
+    });
+  });
+
+  
+  </script>

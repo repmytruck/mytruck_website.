@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--titulo-->
+	<title>--admin--</title>
+   <!--icone-->
+   <link rel="icon" type="ico" href="../Favicon.ico" />
+   <!--bootstrap-->
+
+   <script src="../js/jquery-3.3.1.min.js"></script>
+   <script src="../css/bootstrap-4.1.1/js/bootstrap.min.js"></script>
+   <!--Animate.css-->
+   <link rel="stylesheet" type="text/css" href="../css/animate.css">
+   <!--css-->
+   <link rel="stylesheet" type="text/css" href="../css/style.css">
+   <!--fontawesome-free-5.0.13-->
+   <link rel="stylesheet" href="../css/font-awesome/css/fontawesome-all.min.css">
+   <!--AngularJS v1.6.9-->
+   <script src="../js/angular.min.js"></script>   
+
+     <!-- all css here -->
+     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+     <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+     <link rel="stylesheet" href="../assets/css/icofont.css">
+     <link rel="stylesheet" href="../assets/css/meanmenu.min.css">
+     <link rel="stylesheet" href="../assets/css/slick.css">
+     <link rel="stylesheet" href="../assets/css/owl.carousel.css">
+     <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+
+     <link rel="stylesheet" href="../assets/css/shortcode/shortcodes.css">
+     <link rel="stylesheet" href="../assets/style.css">
+     <link rel="stylesheet" href="../assets/css/responsive.css">
+     <script src="../assets/js/vendor/modernizr-2.8.3.min.js"></script> 
+
+
+    <!--css admin-->
+    <style>
+       i{ font-size:14px;}
+       hr{margin:2px;}
+       small{font-size:12px;}
+       .não{color:red !important;}
+       hr{margin:10px 0;}
+       .avisocaixa {background-color: #ffffff; margin: 8px; padding:30px;}
+       .vazio{position: relative; top:20px; z-index: -999; text-align:center;}
+       .parte{position: relative; top:-30px; z-index:999;}
+       @media only screen and (max-width: 900px) {
+            #avisocaixa{margin-top:8px !important;}
+        }
+    </style> 
+  </head>
+
+ <body ng-app="" class="animated fadeIn">
+
+    <!--aviso deslogado + usuario errado-->
+    <div class="container" id="avisocaixa">
+        <div class="row centered" id="avisodeslogado"></div>
+    </div>
+    
+    <div id="conteudo">
+    
+        <!--header-->
+        <ng-include src="'../partes/header.html'"></ng-include>
+
+        <!--titulo-->
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Solitações de cadastro</h1>
+                <p class="lead">Gerenciamento de solicitações de cadastro de Food Parks e Food Trucks</p>
+            </div>
+        </div>
+
+    <div class="container">
+
+
+        <!--com park-->
+        <div>
+        <hr><hr><h5>Food Trucks com Food Park já cadastrado</h5><hr><hr>
+        <p class="vazio alert-danger">Sem solicitações de cadastro nesse momento</p>
+        <div id="truckPark" class="parte" ></div>
+        </div>
+        <br><br>
+
+        <!--sem park-->
+        <div>
+        <hr><hr><h5>Food Trucks e Food Park</h5><hr><hr>
+        <p class="vazio alert-danger">Sem solicitações de cadastro nesse momento</p>
+        <div id="foodParks" class="parte"></div>
+        </div>
+        <br><br>
+
+        <!--sem park-->
+        <div>
+        <hr><hr><h5>Food Trucks fora de um Food Park</h5><hr><hr>
+        <p class="vazio alert-danger">Sem solicitações de cadastro nesse momento</p>
+        <div id="foodTrucks" class="parte"></div>
+        </div>
+        <br><br><br>
+    </div><!--fim container-->
+    
+
+<!--footer-->
+<ng-include src="'../partes/footer.html'"></ng-include>
+</div><!--fim conteudo-->
+
+    
+ <!-- all js here -->
+ <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+ <script src="assets/js/bootstrap.min.js"></script>
+ <script src="assets/js/owl.carousel.min.js"></script>
+ <script src="assets/js/slick.min.js"></script>
+ <script src="assets/js/jquery.ajaxchimp.min.js"></script>
+ <script src="assets/js/plugins.js"></script>
+ <script src="assets/js/main.js"></script>
+
+<!--chamando arquivo de funçoes do firebase-->
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+<!--chamando a conexão com o firebase-->
+<script src="../js/app.js"></script>
+<script>
+
+firebase.auth().onAuthStateChanged(user => {
+
+    if(user && user.uid == 'PQRf71AWt0TXPpwuxzHgn9JpO9m2'){
+        document.getElementById('conteudo').style.display = 'block';
+        document.getElementById('avisocaixa').style.display = 'none';
+    
+    //exibindo
+    var truckPark = document.getElementById('truckPark');
+    var foodParks = document.getElementById('foodParks');
+    var foodTrucks = document.getElementById('foodTrucks');
+ 
+
+     //food truck com park ja cadastrado
+    firebase.database().ref('/enviados/truckscomPark/').on("child_added", function(dado) {
+
+    var div = document.createElement('div');
+    div.innerHTML = (
+        '<div class="shadow bg-white" style="padding:30px;"><div class="row"><div class="col-lg-12"><h5><hr>Em '+ dado.val().park +'<hr></h5></div><div class="col-lg-3">' +
+        '<img class="img-fluid" src="' + dado.val().truckFoto + '"></div><div class="col-lg-9">' +
+        '<h5>' + dado.val().truckNome + '</h5><hr>' +
+        '<small><div class="row"><div class="col-lg">' +
+        '<i class="far fa-user"></i> ' + dado.val().nome + 
+        '</div><div class="col-lg"><i class="far fa-envelope"></i> ' + dado.val().email + 
+        '</div><div class="col-lg"><i class="far fa-address-card"></i> ' + dado.val().cnpj + 
+        '</div><div class="col-lg"><i class="fas fa-phone"></i> ' + dado.val().truckTel + '</div></div></small><hr>' +
+        '<p>' + dado.val().truckDescricao + '</p><hr><br>' +
+        '<div class="text-right"><button class="btn btn-danger" id="excluirTruckPark" onclick="excluirTruckPark(/' + dado.key + '/);">Excluir</button>'+
+        '<button class="btn btn-primary" id="publicarTruckPark" onclick="publicarTruckPark(/' + dado.key + '/);">Publicar</button>'+
+        '</div></div></div></div></div><br>'
+        );
+    truckPark.appendChild(div);
+
+    })
+
+
+    //food truck e food park
+    firebase.database().ref('/enviados/parks/').on("child_added", function(banco) {
+    var div = document.createElement('div');
+    div.innerHTML = (
+        '<div class="shadow bg-white" style="padding:30px;"><div class="row"><div class="col-lg-3"><img class="img-fluid" src="' + banco.val().parkFoto + '"><br><hr>' +
+        '<small><div class="row" style="padding-left:30px;"><div class="col-lg"><i class="fas fa-car ' + banco.val().parkEstac +'"></i> ' + banco.val().parkEstac + 
+        '</div><div class="col-lg"><i class="fas fa-child ' + banco.val().areaCriancas +'"></i> ' + banco.val().areaCriancas + 
+        '</div></div></small><hr></div><div class="col-lg-9"><h5>' + banco.val().parkNome + '</h5><hr><small><div class="row"><div class="col-lg">' +
+        '<i class="far fa-user"></i> ' + banco.val().nome + 
+        '</div><div class="col-lg"><i class="far fa-envelope"></i> ' + banco.val().email + 
+        '</div><div class="col-lg"><i class="far fa-address-card"></i> ' + banco.val().cnpj + 
+        '</div><div class="col-lg"><i class="fas fa-phone"></i> ' + banco.val().parkTel + 
+        '</div></div></small><hr><p>'+ banco.val().parkDescricao +'</p><hr><small><div class="row"><div class="col-lg-5">' +
+        '<i class="far fa-calendar-alt"></i> ' + banco.val().parkSemana + 
+        '</div><div class="col-lg-2"><i class="far fa-clock"></i> ' + banco.val().parkHorario +
+        '</div><div class="col-lg-5"><i class="fas fa-map-marker-alt"></i> ' + banco.val().parkLocal + 
+        '</div></div></small><hr><br></div></div><hr><hr><hr><br><div class="row"><div class="col-lg-3"><img class="img-fluid" src="' + banco.val().truckFoto +'">' +
+        '</div><div class="col-lg-9"><h5>' + banco.val().truckNome + '</h5><hr><p>' + banco.val().truckDescricao + '</p><hr><br><div class="text-right">' + 
+        '<button class="btn btn-danger" id="excluirPark" onclick="excluirPark(/' + banco.key + '/);">Excluir</button>'+
+        '<button class="btn btn-primary" id="publicarPark" onclick="publicarPark(/' + banco.key + '/);">Publicar</button>'+
+        '</div></div></div></div><br>'      
+    );
+    foodParks.appendChild(div);
+    })
+
+    //food truck sem park
+    firebase.database().ref('/enviados/foodTrucks/').on("child_added", function(child) {
+    var div = document.createElement('div');
+    div.innerHTML = (
+        '<div class="shadow bg-white" style="padding:30px;"><div class="row"><div class="col-lg-3"><img class="img-fluid" src="' + child.val().truckFoto + '"></div>' +
+        '<div class="col-lg-9"><h5>'+ child.val().truckNome +'</h5><hr><small><div class="row"><div class="col-lg">' +
+        '<i class="far fa-user"></i>  '+ child.val().nome + 
+        '</div><div class="col-lg"><i class="far fa-envelope"></i> ' + child.val().email + 
+        '</div><div class="col-lg"><i class="far fa-address-card"></i> ' + child.val().cnpj + 
+        '</div><div class="col-lg"><i class="fas fa-phone"></i> ' + child.val().truckTel + 
+        '</div></div></small><hr><p>'+ child.val().truckDescricao +'</p><hr><small><div class="row"><div class="col-lg-5">' +
+        '<i class="far fa-calendar-alt"></i> ' + child.val().truckSemana + 
+        '</div><div class="col-lg-2"><i class="far fa-clock"></i> ' + child.val().truckHorario +
+        '</div><div class="col-lg-5"><i class="fas fa-map-marker-alt"></i> ' + child.val().truckLocal + '</div></div></small><hr><br><div class="text-right">' + 
+        '<button class="btn btn-danger" id="excluirTruck" onclick="excluirTruck(/' + child.key + '/);">Excluir</button>'+
+        '<button class="btn btn-primary" id="publicarTruck" onclick="publicarTruck(/' + child.key + '/);">Publicar</button>'+
+        '</div></div></div></div><br>'
+    );
+    foodTrucks.appendChild(div);
+    })
+
+   
+}else{
+    document.getElementById('conteudo').style.display = 'none';
+    document.getElementById('avisocaixa').style.display = 'block';
+
+    avisodeslogado.innerHTML = (
+        '<div class="col-md-4"></div><div class="col-md-4 shadow text-center avisocaixa">' +
+        '<span style="padding-top:50px;">Somente administradores podem acessar essa página.</span><br><br>' + 
+        '<span>Você será redirecionado após 5 segundos...</span><br>' +
+        '<a href="../index.html">&larr; Página inicial</a></div></div>'
+    );
+    document.getElementById("avisocaixa").style.marginTop = "200px";
+    setTimeout("window.history.go(-1)",5000);
+}//fim if user
+});//fim user
+
+
+
+//função publicar trucks com parks já cadastrados
+ function publicarTruckPark(param) {
+
+    //confirmação
+        var retorno = confirm('Confirma publicação?');
+        if (retorno){
+            //enviando
+            firebase.database().ref('/enviados/truckscomPark' + param).once("value").then( function(bd) {
+                console.log('entrou');
+
+                //tirando espaços
+                var nomePark = bd.val().park;
+                while(nomePark.indexOf(" ") != -1)
+                nomePark = nomePark.replace(" ", "");
+
+                var nomeTruck = bd.val().truckNome;
+                while(nomeTruck.indexOf(" ") != -1)
+                nomeTruck = nomeTruck.replace(" ", "");
+
+                console.log('tirou espaços');
+
+                //publicando
+                firebase.database().ref('/Parks/' + nomePark + '/Trucks/' + nomeTruck).update( {  
+                    admin: bd.val().email,
+                    cnpj: bd.val().cnpj,
+                    descricao: bd.val().truckDescricao,
+                    foto: bd.val().truckFoto,
+                    nome: bd.val().truckNome,
+                    telefone: bd.val().truckTel
+                })
+
+                firebase.database().ref('/usuarios/' + param).update ({
+                   Tipo: '1',
+                   foodtruck: bd.val().truckNome
+                })
+                console.log('salvou no usuario');
+            })
+            //removendo de enviados
+            .then(function (){
+                firebase.database().ref('/enviados/truckscomPark' + param).remove();
+                console.log('removeu de enviados');
+            }).then(function (){
+                console.log('atualizou');
+                alert('Publicado!');
+                setTimeout("location.reload()",1000);
+            })
+        } else {}  
+
+    };
+
+    //função publicar parks
+    function publicarPark(refere) {
+
+        //confirmação
+        var retorno = confirm('Confirma publicação?');
+        if (retorno){
+            //enviando
+            firebase.database().ref('/enviados/parks' + refere).once("value").then( function(info) {
+                console.log('entrou');
+
+                //tirando espaços
+                var nomePark = info.val().parkNome;
+                while(nomePark.indexOf(" ") != -1)
+                nomePark = nomePark.replace(" ", "");
+
+                var nomeTruck = info.val().truckNome;
+                while(nomeTruck.indexOf(" ") != -1)
+                nomeTruck = nomeTruck.replace(" ", "");
+
+                console.log('tirou espaços');
+                firebase.database().ref('/Parks/'+ nomePark + '/perfil/').update( {
+                    foto: info.val().parkFoto,
+                    nome: info.val().parkNome,
+                })
+                firebase.database().ref('/Parks/'+ nomePark + '/perfil/').update( {
+                    admin: info.val().email,
+                    descricao: info.val().parkDescricao,
+                    foto: info.val().parkFoto,
+                    nome: info.val().parkNome,
+                    semana: info.val().parkSemana,
+                    horario: info.val().parkHorario,
+                    endereco: info.val().parkLocal,
+                    estacionamento: info.val().parkEstac,
+                    areacriancas:info.val().areaCriancas,
+                    telefone: info.val().parkTel,
+                    lat: info.val().lat,
+                    lng: info.val().lng,
+                })
+
+                firebase.database().ref('/Parks/'+ nomePark +'/Trucks/' + nomeTruck).update({
+                    admin: info.val().email,
+                    descricao: info.val().truckDescricao,
+                    foto: info.val().truckFoto,
+                    nome: info.val().truckNome,
+                    cnpj: info.val().cnpj
+                })
+
+                firebase.database().ref('/usuarios/' + refere).update ({
+                   Tipo: '1',
+                   foodtruck: info.val().truckNome
+                })
+                console.log('salvou no usuario');
+            })
+            //removendo de enviados
+            .then(function (){
+                firebase.database().ref('/enviados/parks' + refere).remove();
+                console.log('removeu de enviados');
+            }).then(function (){
+                console.log('atualizou');
+                alert('Publicado!');
+                setTimeout("location.reload()",1000);
+            })
+        } else {}  
+
+    };
+
+    //função publicar trucks
+    function publicarTruck(chave) {
+
+        //confirmação
+        var retorno = confirm('Confirma publicação?');
+        if (retorno){
+            //enviando
+            firebase.database().ref('/enviados/foodTrucks' + chave).once("value").then( function(dados) {
+                console.log('entrou');
+
+                //tirando espaços
+                var nomeTruck = dados.val().truckNome;
+                while(nomeTruck.indexOf(" ") != -1)
+                nomeTruck = nomeTruck.replace(" ", "");
+                
+                console.log('tirou espaços');
+
+                //publicando
+                firebase.database().ref('/Trucks/' + nomeTruck).update( {
+                    admin: dados.val().email,
+                    descricao: dados.val().truckDescricao,
+                    foto: dados.val().truckFoto,
+                    nome: dados.val().truckNome,
+                    semana: dados.val().truckSemana,
+                    horario: dados.val().truckHorario,
+                    endereco: dados.val().truckLocal,
+                    telefone: dados.val().truckTel,
+                    cnpj: dados.val().cnpj,
+                    lat: dados.val().lat,
+                    lng: dados.val().lng
+                })
+
+                firebase.database().ref('/usuarios/' + chave).update ({
+                   Tipo: '1',
+                   foodtruck: dados.val().truckNome
+                })
+                console.log('salvou no usuario');
+            })
+            //removendo de enviados
+            .then(function (){
+                firebase.database().ref('/enviados/foodTrucks' + chave).remove();
+                console.log('removeu de enviados');
+            }).then(function (){
+                console.log('atualizou');
+                alert('Publicado!');
+                setTimeout("location.reload()",1000);
+            })
+        } else {}
+
+    };
+
+    //rejeitando solicitações
+    //trucks com parks já cadastrados
+    function excluirTruckPark(param) {
+        firebase.database().ref('/enviados/truckscomPark' + param).remove().then(function () {
+            alert('excluido');
+            location.reload();
+        });
+    };
+    //parks
+    function excluirPark(refere) {
+    firebase.database().ref('/enviados/parks' + refere).remove().then(function () {
+            alert('excluido');
+            location.reload();
+        });
+    }
+    //trucks
+    function excluirTruck(chave) {
+        firebase.database().ref('/enviados/foodTrucks' + chave).remove().then(function () {
+            alert('excluido');
+            location.reload();
+        });
+    }
+
+
+
+</script>
+
+</body>
+</html>

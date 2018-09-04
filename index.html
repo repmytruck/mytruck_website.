@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--titulo-->
+	<title>MY Truck</title>
+	<!--icone-->
+    <link rel="icon" type="ico" href="../Favicon.ico" />
+	<!--bootstrap-->
+
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="css/bootstrap-4.1.1/js/bootstrap.min.js"></script>
+	<!--Animate.css-->
+    <link rel="stylesheet" type="text/css" href="../css/animate.css">
+    <!--css-->
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <!--fontawesome-free-5.0.13-->
+    <link rel="stylesheet" href="../css/font-awesome/css/fontawesome-all.min.css">
+    <!--AngularJS v1.6.9-->
+    <script src="js/angular.min.js"></script>   
+
+      <!-- all css here -->
+      <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+      <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+      <link rel="stylesheet" href="assets/css/icofont.css">
+      <link rel="stylesheet" href="assets/css/meanmenu.min.css">
+      <link rel="stylesheet" href="assets/css/slick.css">
+      <link rel="stylesheet" href="assets/css/owl.carousel.css">
+      <link rel="stylesheet" href="assets/css/magnific-popup.css">
+
+      <link rel="stylesheet" href="assets/css/shortcode/shortcodes.css">
+      <link rel="stylesheet" href="assets/style.css">
+      <link rel="stylesheet" href="assets/css/responsive.css">
+      <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script> 
+
+
+	<style>
+		.card-img-top{width:100%; height: auto; overflow: hidden !important;}
+    </style>
+    
+  </head>
+
+ <body ng-app="" class="animated fadeIn">
+	 <!--header-->
+    <ng-include src="'../partes/header.html'"></ng-include>
+
+        <!-- hero area start -->
+        <div class="hero-area slider-1" id="slider-area" style="margin-top:-180px !important;">
+            <div class="slider">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-offset-4 col-sm-offset-4 col-md-8">
+                            <div class="hero-text mr-ri-l">
+                                <h1>My Truck</h1>
+                                <p>Os Melhores Food Trucks da Cidade, na palma da sua mão.</p>
+                                <a class="hero-btn" href="dowload/My_Truck-14-06-2018.apk" download><i class="fab fa-android"></i> Baixar App</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- hero area end -->
+
+    <section id="toptrucks" class="about-area pt-130">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="section-heading pb-55 text-center">
+                        <h2>Food Parks</h2>
+                        <p>Confira alguns Food Parks da cidade.</p>
+                    </div>
+                </div>
+            </div>
+        	<div class="row">
+
+        		<div class="col-md-12">
+        			<!--div que recebe conteudo-->
+        			<div id="conteudo" class="card-group"></div>
+        		</div>
+        	</div>
+        </div>
+    </section>
+
+    <section class="funfact-area bg-2 pt-125 pb-130" style="margin: 80px 0px 0px 0px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="single-fact text-center">
+                        <h2 class="counter">2</h2>
+                        <h5>Trucks</h5>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="single-fact text-center">
+                        <h2 class="counter">2</h2>
+                        <h5>Food Parks</h5>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="single-fact text-center">
+                        <h2 class="counter">2</h2>
+                        <h5>Cidades</h5>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="single-fact text-center">
+                        <h2 class="counter">2</h2>
+                        <h5>Localizações</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="download-area bg-3 ptb-130">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="section-heading text-center pb-45">
+                        <h2>Baixe Agora</h2>
+                        <p>Não perca tempo e tenha os melhores Food Trucks da cidade na palma da sua mão.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="download-option-btn text-center">
+                        <ul>
+                            <li>
+                                <a class="active" href="dowload/My_Truck-14-06-2018.apk" download><i class="icofont icofont-brand-android-robot"></i> Baixar App</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- all js here -->
+<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/owl.carousel.min.js"></script>
+<script src="assets/js/slick.min.js"></script>
+<script src="assets/js/jquery.ajaxchimp.min.js"></script>
+<script src="assets/js/plugins.js"></script>
+<script src="assets/js/main.js"></script>
+
+
+
+<!--modal logar para favoritar-->
+<div id="mymodal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="text-center" style="padding: 20px">
+            <span style="padding-top:50px;">Para favoritar você precisa estar conectado.</span><br><br>
+            <a href="../app/login.html" style="margin-right: 10px;"><span class="btn btn-danger my-2 my-sm-0">Entrar</span></a>
+            <a href="../app/cadastro.html"><span class="btn btn-danger my-2 my-sm-0">Cadastro</span></a><br><br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!--footer-->
+<ng-include src="'../partes/footer.html'"></ng-include>
+<!--chamando arquivo de funçoes do firebase-->
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+<!--chamando a conexão com o firebase-->
+<script src="js/app.js"></script>
+
+<script>
+//declarando variavel e atribuindo a div com id conteudo
+var conteudo = document.getElementById('conteudo');
+ 
+
+firebase.database().ref('/Parks/').once("value", function(dad) {
+dad.forEach(function (banco) {
+firebase.database().ref('/Parks/'+ banco.key +'/perfil/').once("value").then(function(child) {
+
+  var div = document.createElement('div');
+
+  //div.style.cssText = "border:soliod 0px;"
+  div.className = "col-lg-6";
+
+  div.innerHTML = (
+    '<a href="foodpark.html?' + banco.key + '">' + 
+    '<div class="card">' + 
+    '<img class="card-img-top" src="' + child.val().foto + '" style="height: 250px; width: 100%; display: block;">' + 
+    '<div class="card-body"><br><h3 class="card-title">' + child.val().nome + '</h3>' + 
+    '<p class="card-text">'+ child.val().descricao +'</p></a>' + 
+    '<div class="card-footer">' + 
+    '<table class="text-center" style="width:100%; background-color:#ccc;"><tr>' + 
+    '<td style=" text-align:center !important;border:2px solid #fff !important;padding:10px 0px;"><a href="" id="Parks/'+ banco.key +'" class="favoritos"></a></td>' +
+    '<td style=" text-align:center !important;border:2px solid #fff !important;padding:10px 0px;"><a href="foodpark.html?' + banco.key + '"> <i class="far fa-comment-alt"></i> Avalie &nbsp;&nbsp;&nbsp;</a></td>' + 
+    '</tr></table></div></div></div><br>'
+
+    );
+  conteudo.appendChild(div);
+
+})
+    //pegando os favoritos do usuario 
+    .then(function () {
+
+        firebase.auth().onAuthStateChanged (user => {
+            if(user){
+                firebase.database().ref('/usuarios/'+ user.uid + '/Favoritos/Parks/').once("value").then(function (dados) {
+                    
+                    //favoritando sem referencia no banco de dados
+                    if(dados.val() == null){
+                        //favoritando
+                        var x =  document.getElementById('Parks/'+banco.key);
+                        x.innerHTML = ('<i class="far fa-star"></i> Favoritar ')
+                        x.addEventListener('click', function (e) {
+                                    firebase.database().ref('/usuarios/'+ user.uid + '/Favoritos/Parks/'+banco.key).set('Parks/'+banco.key);
+                                    location.reload();                                
+                                })
+                    }
+                    //se usuario tiver pelo menos um favoritp
+                    else{
+
+                        var fav = dados.val();
+                        var park = banco.key;
+
+                        
+                        //não favorito
+                        if (fav[park] == null){
+
+                            var x =  document.getElementById('Parks/'+banco.key);
+                            x.innerHTML = ('<i class="far fa-star"></i> Favoritar ')
+                            
+                            //favoritando
+                            x.addEventListener('click', function (e) {
+                                firebase.database().ref('/usuarios/'+ user.uid + '/Favoritos/Parks/'+banco.key).set('Parks/'+banco.key);
+                                location.reload();                                
+                            })
+                        }
+                        //favoritos do usuario
+                        else{
+                            var x = document.getElementById(fav[park]);
+                            x.innerHTML=('<i class="fas fa-star"></i> Favorito ');
+                            x.style.color = "red";
+
+                            //desfavoritando
+                            x.addEventListener('click', function (e) {
+                                firebase.database().ref('/usuarios/'+ user.uid + '/Favoritos/Parks/'+banco.key).remove();
+                                location.reload();                                
+                            })
+                        }
+                    }
+                })
+            }//fim if user
+            //else deslogado
+            else{
+                //link com modal para deslogados
+                var x = document.getElementsByClassName('favoritos');
+                for (i = 0; i < x.length; i++) {
+                    x[i].innerHTML = ('<span data-toggle="modal" data-target=".bd-example-modal-sm"><i class="far fa-star"></i> Favoritar </span>')
+                    
+                }
+
+            }//fim else user
+        })
+        
+    })//fim then
+})
+})
+
+</script>
+
+</body>
+</html>

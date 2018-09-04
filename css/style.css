@@ -1,0 +1,77 @@
+/*adaptando tema*/
+.navbar-brand{
+ margin-top:-30px !important;
+ margin-right:30px !important;
+}
+.navbar-fixed-top > div > div > .navbar-brand{
+  margin-top:0px !important;
+}
+@media only screen and (max-width: 991px) {
+  .navbar-brand{
+    margin-top:0px !important;
+   }
+}
+hr{
+  margin:10px !important;
+}
+.form-inline input {margin:10px;}
+input, textarea {
+    background-color: #fff !important;
+    border-radius: 5px !important;
+    box-shadow: 0 0 2px rgb(112, 126, 148) !important;
+}
+input:focus, textarea:focus {
+    box-shadow: 0 0 10px rgb(81, 131, 238) !important;
+}
+input[type=file]{
+    box-shadow: none !important;
+}
+input[type=radio]{
+    width:18px !important;
+    box-shadow: none !important;
+}
+input[type=checkbox]{
+    width:18px !important;
+    box-shadow: none !important;
+}
+.radio-inline{
+    margin-top:-5px !important;
+}
+.bg-white{
+  background-color: #fff !important;
+}
+/*usado no formulario de comentários*/
+.estrelas input[type=radio] {
+  display: none;
+}
+.estrelas label i.fa{
+  font-size: 1.8em
+}
+.estrelas label i.fa:before {
+  content:'\f005';
+  color: #FC0;
+}
+.estrelas input[type=radio]:checked ~ label i.fa:before {
+  color: #CCC;
+}
+#vazia{
+	color: #CCC;
+}
+#cheia{
+  	color: #FC0;
+}
+
+/*Começando por aqui */
+
+a{box-shadow: 0px 0px ;color: #7f7f7f;}
+a:hover{
+  color: #F75261;
+  text-decoration:none ;
+  transition: color 0.5s ;
+  }
+a:active {
+  -ms-transform: scale(0.9) ; 
+  -webkit-transform: scale(0.9) ;
+  transform: scale(0.9) ;
+  transition: transform 0.5s ;
+ }

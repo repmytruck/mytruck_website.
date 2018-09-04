@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--titulo-->
+	<title>Perto de Você - Food Parks</title>
+	<!--icone-->
+	<link rel="icon" type="ico" href="../Favicon.ico" />
+	<!--bootstrap-->
+
+	<script src="js/jquery-3.3.1.min.js"></script>
+    <script src="css/bootstrap-4.1.1/js/bootstrap.min.js"></script>
+    <!--css-->
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    	<!--fontawesome-free-5.0.13-->
+	<link rel="stylesheet" href="../css/font-awesome/css/fontawesome-all.min.css">
+    <!--animações-->
+	<link rel="stylesheet" type="text/css" href="../css/animate.css">
+    <!--AngularJS v1.6.9-->
+    <script src="js/angular.min.js"></script>   
+
+     <!-- all css here -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+
+<style>
+    #map {
+        height: 100%;
+        width:100%;
+    }
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    .marcadorInfo{
+        padding: 0;
+    }
+    .caixaMapa{
+        padding:0px !important;
+        margin:0px !important;
+        height: 100% !important;
+        width:100% !important;
+    }
+    @media only screen and (max-width: 991px) {
+       #header-top{display: none !important;}
+        .caixaMapa{
+            margin:0px !important;
+            height: 100% !important;
+            width:100% !important;
+            }
+
+    }
+
+</style>
+</head>
+
+<body  ng-app="" class="animated fadeIn" onresize="location.reload();">
+  
+  <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+
+<script>
+ //conectando-se ao firebase
+ const config = {
+    apiKey: "AIzaSyDv2EnmG9gdGyzTmu0CsFcNeA72PP7R-5o",
+    authDomain: "my-truck-e7496.firebaseapp.com",
+    databaseURL: "https://my-truck-e7496.firebaseio.com",
+    projectId: "my-truck-e7496",
+    storageBucket: "my-truck-e7496.appspot.com",
+    messagingSenderId: "466563982133"
+  };
+  //iniciando o firebase
+  firebase.initializeApp(config);
+</script>
+ 
+<header>
+<nav id="header-top" class="navbar navbar-fixed-top">
+<div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="/"><img src="assets/img/logo.png" alt="MyTruck"></a>
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation" aria-expanded="false">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+</div>
+<div class="collapse navbar-collapse" id="navigation">
+<ul class="nav navbar-nav navbar-right">
+    <li><a class="nav-link" href="../#toptrucks">Food Parks</a></li>
+    <li><a class="nav-link" href="/foodtrucks.html">Food Trucks</a></li>
+    <li class="active"><a class="nav-link" href="/pertodevoce.html">Perto de você</a></li>
+    <li><a class="nav-link" href="/formtruck.html">Adicione seu Food Truck</a></li>
+    <li>
+    <div id="logadomenu" style="padding: 20px !important;">
+        <a class="download-btn" href="../app/login.html"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <a class="download-btn" href="../app/cadastro.html"><i class="far fa-address-card"></i> Cadastre-se</a>
+    </div>
+
+    <div id="mostrarlogadomenu" style="display:none; padding: 20px !important;">
+        <a class="download-btn" href="../app/perfil.html"><i class="fas fa-user-edit"></i> Perfil</a>
+        <a class="download-btn" href="" id="sairButtonmenu"><i class="fas fa-sign-out-alt"></i> Sair</a>
+    </div>
+    </li>
+</ul>
+</div>
+</div>
+</nav>
+</header>
+  
+<!--mapa-->
+<div class="caixaMapa">
+<div id="map"></div>
+</div>
+
+
+<script type="text/javascript">
+  var script = '<script type="text/javascript" src="../js/infobubble/infobubble';
+  if (document.location.search.indexOf('compiled') !== -1) {
+    script += '-compiled';
+  }
+  script += '.js"><' + '/script>';
+  document.write(script);
+</script>
+<script>
+    function initMap() {
+
+        //zoom do mapa de acordo com a largura da tela
+        var larguraTela = window.innerWidth; 
+            if(larguraTela < 990){
+                varzoom = 12;
+            }else{varzoom = 14}
+            console.log(varzoom)
+
+        var latlng = new google.maps.LatLng(-8.0463, -34.889);
+        var myOptions = { zoom: varzoom, center: latlng, mapTypeId: google.maps.MapTypeId.ROADMAP };
+        var map = new google.maps.Map(document.getElementById("map"), myOptions);
+        firebase.database().ref('/Parks/').once("value", function(dad) {
+        dad.forEach(function (banco) {
+        firebase.database().ref('/Parks/'+ banco.key +'/perfil/').once("value").then(function(snapshot) {
+            var val = snapshot.val();
+            var marker = new google.maps.Marker({
+                position: {
+                    lat: val.lat,
+                    lng: val.lng,
+                },
+                map: map,
+                icon: 'img/map-marker-8.png',
+                title: val.nome
+            });
+
+            var contentString = 
+            '<div class="text-center marcadorInfo"><a href="https://www.google.com.br/maps/place/'+val.endereco+'" target="_blank">'+
+            '<br><img src="img/iconemapavermelho.png" width="40px" height="30px" class="rounded mx-auto d-block"/><br>'+
+            '<span style="color:#000;">'+val.nome+'</span></a></div>';
+
+            infoBubble = new InfoBubble({
+            maxWidth: 300,
+            maxHeight: 300,
+            content: contentString,
+            backgroundColor: '#fff',
+            padding: 0,
+            hideCloseButton: true,
+            });
+            infoBubble.open(map, marker);
+
+        })})})
+    }
+
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRSnBwUm4cvuJbTcCUBEL4K7Yd-4_uIo4&libraries=visualization&callback=initMap"></script>
+</body>
+</html>
