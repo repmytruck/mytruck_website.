@@ -1,6 +1,6 @@
  //conectando-se ao firebase
  const config = {
-    apiKey: "####",
+    apiKey: "########",
     authDomain: "####",
     databaseURL: "####",
     projectId: "####",
