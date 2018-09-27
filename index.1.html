@@ -6,58 +6,39 @@
 	<!--titulo-->
 	<title>MY Truck</title>
 	<!--icone-->
-    <link rel="icon" type="ico" href="Favicon.ico" />
+    <link rel="icon" type="ico" href="../Favicon.ico" />
 	<!--bootstrap-->
+
 	<script src="js/jquery-3.3.1.min.js"></script>
- 
+	<script src="css/bootstrap-4.1.1/js/bootstrap.min.js"></script>
 	<!--Animate.css-->
-    <link rel="stylesheet" type="text/css" href="css/animate.css">
+    <link rel="stylesheet" type="text/css" href="../css/animate.css">
+    <!--css-->
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
     <!--fontawesome-free-5.0.13-->
-    <link rel="stylesheet" href="css/font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../css/font-awesome/css/fontawesome-all.min.css">
     <!--AngularJS v1.6.9-->
     <script src="js/angular.min.js"></script>   
 
       <!-- all css here -->
       <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-       <link rel="stylesheet" href="assets/css/shortcode/shortcodes.css">
+      <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+      <link rel="stylesheet" href="assets/css/icofont.css">
+      <link rel="stylesheet" href="assets/css/meanmenu.min.css">
+      <link rel="stylesheet" href="assets/css/slick.css">
+      <link rel="stylesheet" href="assets/css/owl.carousel.css">
+      <link rel="stylesheet" href="assets/css/magnific-popup.css">
+
+      <link rel="stylesheet" href="assets/css/shortcode/shortcodes.css">
       <link rel="stylesheet" href="assets/style.css">
+      <link rel="stylesheet" href="assets/css/responsive.css">
+      <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script> 
+
+
+	<style>
+		.card-img-top{width:100%; height: auto; overflow: hidden !important;}
+    </style>
     
-      <!--css-->
-    <link rel="stylesheet" type="text/css" href="css/style.css"> 
-
-<style>
-.favoritos{
-  text-align:right !important;
-  bottom:-40px;
-  position: absolute;
-  top:20px;
-  right:30px;
-  color:#FFC371;
-}
-.favoritos:focus{ color:#FFC371; }
-.favoritos i{ font-size: 20px; }
-.btn-comente{ 
-    width:100%;
-    border-radius:50px;
-}
-.divcartao{
-    padding:20px;
-}
-.cartao{
-    border:1px solid #ccc;
-    min-height:500px;
-    margin-bottom:30px;
-}
-
-.card-img-top {
-    width: 100%;
-    height: 320px;
-    object-fit: cover;
-    object-position: center;
-}
-    
-</style>
-
   </head>
 
  <body ng-app="" class="animated fadeIn">
@@ -91,15 +72,16 @@
                         <p>Confira alguns Food Parks da cidade.</p>
                     </div>
                 </div>
-            </div>      		
-        	
+            </div>
+        	<div class="row">
+
+        		<div class="col-md-12">
+        			<!--div que recebe conteudo-->
+        			<div id="conteudo" class="card-group"></div>
+        		</div>
+        	</div>
         </div>
     </section>
-
-    <!--div que recebe conteudo-->
-    <div class="container">
-        <div id="conteudo" class="row"></div>
-    </div>
 
     <section class="funfact-area bg-2 pt-125 pb-130" style="margin: 80px 0px 0px 0px;">
         <div class="container">
@@ -146,7 +128,7 @@
                     <div class="download-option-btn text-center">
                         <ul>
                             <li>
-                                <a class="active" href="dowload/My_Truck-14-06-2018.apk" download><i class="fab fa-android"></i> Baixar App</a>
+                                <a class="active" href="dowload/My_Truck-14-06-2018.apk" download><i class="icofont icofont-brand-android-robot"></i> Baixar App</a>
                             </li>
                         </ul>
                     </div>
@@ -198,18 +180,19 @@ firebase.database().ref('/Parks/'+ banco.key +'/perfil/').once("value").then(fun
   var div = document.createElement('div');
 
   //div.style.cssText = "border:soliod 0px;"
-  div.className = "col-md-12";
+  div.className = "col-lg-6";
 
   div.innerHTML = (
-    '<div class="cartao"><a href="foodpark.html?'+banco.key+'">'+
-    '<img class="card-img-top" src="'+child.val().foto+'"></a>'+
-    '<div style="text-align:right;" class="divfavoritos"><a href="" id="Parks/'+banco.key+'" class="favoritos"></a></div>'+ 
-    '<div class="divcartao">'+
-    '<a href="foodpark.html?' + banco.key + '"><h3 class="card-title">' +child.val().nome+ '</h3></a><hr>'+
-    '<p>'+child.val().descricao+'</p><hr>'+
-    '<div style="width:50%;position:absolute;bottom:80px;right:40px;">'+
-    '<a class="btn btn-danger btn-comente" href="foodpark.html?'+banco.key+'">Veja mais <i class="fas fa-arrow-right"></i></a></div>'+  
-    '</div></div></div>'
+    '<a href="foodpark.html?' + banco.key + '">' + 
+    '<div class="card">' + 
+    '<img class="card-img-top" src="' + child.val().foto + '" style="height: 250px; width: 100%; display: block;">' + 
+    '<div class="card-body"><br><h3 class="card-title">' + child.val().nome + '</h3>' + 
+    '<p class="card-text">'+ child.val().descricao +'</p></a>' + 
+    '<div class="card-footer">' + 
+    '<table class="text-center" style="width:100%; background-color:#ccc;"><tr>' + 
+    '<td style=" text-align:center !important;border:2px solid #fff !important;padding:10px 0px;"><a href="" id="Parks/'+ banco.key +'" class="favoritos"></a></td>' +
+    '<td style=" text-align:center !important;border:2px solid #fff !important;padding:10px 0px;"><a href="foodpark.html?' + banco.key + '"> <i class="far fa-comment-alt"></i> Avalie &nbsp;&nbsp;&nbsp;</a></td>' + 
+    '</tr></table></div></div></div><br>'
 
     );
   conteudo.appendChild(div);
@@ -226,7 +209,7 @@ firebase.database().ref('/Parks/'+ banco.key +'/perfil/').once("value").then(fun
                     if(dados.val() == null){
                         //favoritando
                         var x =  document.getElementById('Parks/'+banco.key);
-                        x.innerHTML = ('<i class="far fa-star"></i>')
+                        x.innerHTML = ('<i class="far fa-star"></i> Favoritar ')
                         x.addEventListener('click', function (e) {
                                     firebase.database().ref('/usuarios/'+ user.uid + '/Favoritos/Parks/'+banco.key).set('Parks/'+banco.key);
                                     location.reload();                                
@@ -243,7 +226,7 @@ firebase.database().ref('/Parks/'+ banco.key +'/perfil/').once("value").then(fun
                         if (fav[park] == null){
 
                             var x =  document.getElementById('Parks/'+banco.key);
-                            x.innerHTML = ('<i class="far fa-star"></i>')
+                            x.innerHTML = ('<i class="far fa-star"></i> Favoritar ')
                             
                             //favoritando
                             x.addEventListener('click', function (e) {
@@ -254,8 +237,8 @@ firebase.database().ref('/Parks/'+ banco.key +'/perfil/').once("value").then(fun
                         //favoritos do usuario
                         else{
                             var x = document.getElementById(fav[park]);
-                            x.innerHTML=('<i class="fas fa-star"></i>');
-                            x.style.color = "gold";
+                            x.innerHTML=('<i class="fas fa-star"></i> Favorito ');
+                            x.style.color = "red";
 
                             //desfavoritando
                             x.addEventListener('click', function (e) {
@@ -271,7 +254,7 @@ firebase.database().ref('/Parks/'+ banco.key +'/perfil/').once("value").then(fun
                 //link com modal para deslogados
                 var x = document.getElementsByClassName('favoritos');
                 for (i = 0; i < x.length; i++) {
-                    x[i].innerHTML = ('<span data-toggle="modal" data-target=".bd-example-modal-sm"><i class="far fa-star"></i></span>')
+                    x[i].innerHTML = ('<span data-toggle="modal" data-target=".bd-example-modal-sm"><i class="far fa-star"></i> Favoritar </span>')
                     
                 }
 

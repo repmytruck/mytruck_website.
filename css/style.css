@@ -66,12 +66,15 @@ input[type=checkbox]{
 a{box-shadow: 0px 0px ;color: #7f7f7f;}
 a:hover{
   color: #F75261;
-  text-decoration:none ;
+  text-decoration:none !important;
   transition: color 0.5s ;
+  }
+  a:focus{
+    color: #F75261;
   }
 a:active {
   -ms-transform: scale(0.9) ; 
   -webkit-transform: scale(0.9) ;
   transform: scale(0.9) ;
   transition: transform 0.5s ;
- }
+}
