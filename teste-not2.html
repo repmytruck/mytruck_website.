@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--titulo-->
+	<title>MY Truck</title>
+	<!--icone-->
+    <link rel="icon" type="ico" href="Favicon.ico" />
+	<!--bootstrap-->
+	<script src="js/jquery-3.3.1.min.js"></script>
+ 
+
+
+    
+      <!--css-->
+    <link rel="stylesheet" type="text/css" href="css/style.css"> 
+</head>
+<body>
+
+<button onclick="notifica('mensagem titulo','corppo mensagem','https://my-truck-e7496.firebaseapp.com/app/perfil.html');">fsdfds</button>
+
+<h1>teste notificação</h1>
+
+
+
+<form id="formulario">
+    <div class="form-group">
+        <label for="emailLogin">E-mail*</label>
+        <input type="email" class="form-control" id="emailLogin" required="" autofocus>
+    </div>
+    <div class="form-group">
+        <label for="senhaLogin">Senha*</label>
+        <input type="password" class="form-control" id="senhaLogin" required="">
+    </div>
+ <!--mensagem de erro-->
+ <div id="mensagemErro"></div>
+<br>
+<div class="text-center">
+<a href="cadastro.html">Cadastre-se </a> |
+<a href="perdeuasenha.html"> Perdeu a  senha?</a>
+
+<button type="submit" class="btn btn-lg btn-block btn-danger" id="loginButton">ENTRAR</button>
+</form>
+
+
+
+<!-- Import and configure the Firebase SDK -->
+<!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
+<!-- If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
+<script src="/__/firebase/5.5.2/firebase-app.js"></script>
+<script src="/__/firebase/5.5.2/firebase-messaging.js"></script>
+<script src="/__/firebase/init.js"></script>
+<script src="/__/firebase/5.5.2/firebase-auth.js"></script>
+
+
+<script>
+
+
+var formulario = document.getElementById('formulario');
+formulario.addEventListener('submit', function (e) {
+      // impede o envio do form
+      e.preventDefault();
+    var emailLogin = document.getElementById('emailLogin');
+    var senhaLogin = document.getElementById('senhaLogin');
+    var mensagemErro = document.getElementById('mensagemErro');
+    //carregando
+    mensagemErro.innerHTML = ('<div class="animated fadeIn">Carregando... <img src="../img/load.gif"/></div>');
+    firebase
+        .auth()
+        .signInWithEmailAndPassword(emailLogin.value, senhaLogin.value)
+        .then(function () {
+            //nada por aqui
+        })
+        .catch(function (error) {
+            //limpando mensagem
+            mensagemErro.innerHTML = ('');
+            //exibindo erro 
+            mensagemErro.innerHTML = ('<div class="alert alert-danger"><span class="animated flash">Falha ao entrar! Tente novamente...</span></div>');
+            console.log('Erro: ' + error.message);
+        });
+});
+
+firebase.auth().onAuthStateChanged(firebaseUser => {
+    if(firebaseUser){
+    console.log(firebaseUser);
+    }
+    else{
+      console.log('deslogaddo');
+    }
+});
+
+
+
+
+function notifica(titulo,mensagem,endereco) {
+
+var key = 'AAAAbKFhYzU:APA91bEyC3HD44XoRv_kqVgyEXmWcgtpIF_T6_w2tClX9ibXiEmd9c8Zvc4KByDxOMSZijH8p_Ta70tRp83IAUXXkBtVcHGNlv6JfseW0d6hyLEnb6d0mTLmHqpyQt-4ijtlkHQ7K9qF';
+var to = '/topics/all';
+
+var notification = {
+  'title': titulo,
+  'body': mensagem,
+  'icon': 'img/logovermelha.png',
+  'click_action': endereco
+};
+
+fetch('https://fcm.googleapis.com/fcm/send', {
+  'method': 'POST',
+  'headers': {
+    'Authorization': 'key=' + key,
+    'Content-Type': 'application/json'
+  },
+  'body': JSON.stringify({
+    'notification': notification,
+    'to': to
+  })
+}).then(function(response) {
+  console.log(response);
+}).catch(function(error) {
+  console.error(error);
+})
+
+};
+
+
+</script>
+
+</body>
+</html>

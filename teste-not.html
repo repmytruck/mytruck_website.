@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-4.1.1/css/bootstrap.min.css">
+  
+  <style>
+  html,body{width:100%;height:100%;margin:0;}
+  </style>
+</head>
+<body>
+  
+<div style="height:100%;display: flex;align-items: center;justify-content: center;">
+
+<div style="background-color:#fff;width:600px;height:500px;">
+  
+    <div class="col-lg-6 shadow" id="caixa">
+        <!--logado-->
+        <div class="text-center">
+            <div id="avisologado"></div>
+            <a href=""  id="sairButton" ><span id="mostrarlogado" class="btn btn-danger">Sair</span></a> 
+        </div>
+    <!--cadastro-->
+    <div id="logado" >
+        <h1 class="text-center" style="margin-top: 20px;">Entre com sua conta</h1><br>
+        
+        <form id="formulario">
+            <div class="form-group">
+                <label for="emailLogin">E-mail*</label>
+                <input type="email" class="form-control" id="emailLogin" required="" autofocus>
+            </div>
+            <div class="form-group">
+                <label for="senhaLogin">Senha*</label>
+                <input type="password" class="form-control" id="senhaLogin" required="">
+            </div>
+         <!--mensagem de erro-->
+         <div id="mensagemErro"></div>
+        <br>
+        <div class="text-center">
+        <a href="cadastro.html">Cadastre-se </a> |
+        <a href="perdeuasenha.html"> Perdeu a  senha?</a>
+        
+        <button type="submit" class="btn btn-lg btn-block btn-danger" id="loginButton">ENTRAR</button>
+        </form>
+
+        <div class="text-left">
+        <a href="../index.html" style="text-align: left;">&larr; Página inicial</a><br>
+        </div>
+    </div>
+    </div>
+
+</div>
+
+</div>
+
+<!--
+div.container4 {
+    height: 10em;
+    position: relative }
+div.container4 p {
+    margin: 0;
+    background: yellow;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) }
+-->
+
+</body>
+</html>

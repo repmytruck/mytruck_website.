@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastre-se</title><!--titulo-->
+    <link rel="icon" type="imagem/png" href="../favicon.ico"><!--icone-->
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-4.1.1/css/bootstrap.min.css"><!--bootstrap css-->
+    <link rel="stylesheet" type="text/css" href="../css/animate.css"><!--animações-->
+    <link rel="stylesheet" type="text/css" href="../css/font-awesome/css/fontawesome-all.min.css"><!--bootstrap css-->
+    <link rel="stylesheet" type="text/css" href="../css/style.css"><!--css-->
+    <!--css /-->
+    <style>
+        html,body{width:100%;height:100%;margin:0;}
+        .divcaixa{height:100%;display:flex;align-items:center;justify-content:center;}
+        #caixa{width:750px;height:400px;padding:0 20px;}    
+        #mensagem{font-size:16px;text-align:center;color:brown;}  
+    </style>
+</head>
+
+<body class="animated fadeIn">
+   
+<div class="divcaixa">
+    <div id="caixa">
+          
+        <img src="../img/logovermelha.png" style="width:180px;margin-right:30px;float:left;"/>  
+
+        <!--form perdeu a senha-->
+        <div class="text-left" style="float:left;">
+            <h1>Redefinir senha</h1>
+            <span>Insira o seu email de conta e receba um email para redefinir sua senha.</span><br><br>
+        
+        <form id="formulario">
+            <div class="input-group mb-3">
+            <input type="email" class="form-control" id="recuperarEmail" placeholder="Digite seu email aqui..." autocomplete="email" required autofocus> 
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-danger"><i class="far fa-envelope"></i></button>
+            </div>
+            </div>
+
+            <div id="mensagem"></div><!--mensagem-->
+        
+        </form>
+        </div>
+    </div>
+</div>
+
+
+<!--firebase-->
+<script src="/__/firebase/5.5.2/firebase-app.js"></script>
+<script src="/__/firebase/5.5.2/firebase-auth.js"></script>
+<script src="/__/firebase/init.js"></script>
+<script>
+
+//recuperar senha
+var formulario = document.getElementById('formulario');
+var recuperarEmail = document.getElementById('recuperarEmail');
+var mensagem =document.getElementById('mensagem');
+
+formulario.addEventListener('submit', function (e) {
+    // impede o envio do form
+    e.preventDefault();
+    //carregando
+    mensagem.innerHTML = ('<div class="animated fadeIn">Carregando... <img src="../img/load.gif"/></div>');
+    
+    var auth = firebase.auth();
+    var emailAddress = recuperarEmail.value;
+    //função
+    auth.sendPasswordResetEmail(emailAddress).then(function() {
+    
+    }).then(function() {
+        // mensagem sucesso
+        mensagem.innerHTML = ('<div class="alert alert-success"><span class="animated flash">Email enviado. Confira seu email.</span></div>');  
+    }).catch(function(error) {
+        //exibindo erro 
+        mensagem.innerHTML = ('<div class="alert alert-danger"><span class="animated flash">Erro! Tente novamente daqui alguns minutos...</span></div>');
+        console.error('Erro: ' + error.message);
+    });
+});
+</script>
+
+</body>
+</html>
